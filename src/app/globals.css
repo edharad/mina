@@ -1,10 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap');
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --primary-color: #ffdf6c;
+  --highlight-color: #f0f0f0;
+  --title-font: 'Dancing Script', cursive;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -14,8 +18,181 @@
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: 'Lora', serif;
+  background: linear-gradient(135deg, #6a11cb, #2575fc); /* Gradient de fond global */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+/* Container principal */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;  /* Hauteur de 100% de la fenêtre */
+  width: 100vw;   /* Largeur de 100% de la fenêtre */
+  color: white;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 1rem;
+  box-sizing: border-box;
+  overflow: hidden; /* Pour empêcher les barres de défilement indésirables */
+}
+
+/* Titre principal */
+.title {
+  font-size: 3rem;
+  letter-spacing: 0.1em;
+  font-weight: bold;
+  color: #ffdf6c;
+  margin-bottom: 2rem;
+  font-family: 'Dancing Script', cursive;
+}
+
+/* Bouton de génération de recette */
+.generate-button {
+  padding: 1rem 2rem;
+  background-color: #ffdf6c;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  font-family: 'Dancing Script', cursive;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+  margin-bottom: 2rem;
+}
+
+.generate-button:hover {
+  transform: scale(1.1);
+}
+
+.generate-button:active {
+  transform: scale(1);
+}
+
+/* Style pour le corps de la recette */
+.recipe-container {
+  max-height: 70vh;
+  overflow-y: auto;
+  margin-top: 2rem;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 2rem;
+  border-radius: 8px;
+  color: #fff;
+  width: 90%;
+  max-width: 1000px;
+  text-align: left;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  margin-bottom: 2rem;
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Titres de sections */
+.ingredients-title,
+.instructions-title,
+.recipe-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2rem;
+  color: #ffdf6c; /* Jaune pour tous les titres */
+  text-transform: none;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+/* Disposition des éléments */
+.recipe-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.image-container {
+  width: 100%;
+  text-align: center;
+}
+
+.recipe-image {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  border-radius: 10px; /* Ajout d'un border-radius sur l'image */
+  object-fit: cover;
+}
+
+.ingredients-container {
+  width: 100%;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.ingredients-container ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.ingredients-container li {
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  display: flex;
+  justify-content: space-between; /* Alignement des quantités et ingrédients */
+}
+
+.ingredient-quantity {
+  color: #ffdf6c; /* Jaune pour la quantité */
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.2rem;
+}
+
+.instructions-container {
+  white-space: pre-line;
+  line-height: 1.6;
+}
+
+.instructions-title {
+  font-size: 1.5rem;
+  color: #ffdf6c;
+  font-family: 'Dancing Script', cursive;
+  transition: transform 0.3s ease-in-out;
+}
+
+.instructions-title:hover {
+  transform: scale(1.05);
+}
+
+/* Disposition mobile */
+@media (min-width: 700px) {
+  .recipe-body {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+  }
+
+  .image-container {
+    width: 40%;
+    margin-left: 0;
+    justify-content: center;
+    margin-right: 2rem;
+  }
+
+  .ingredients-container {
+    width: 48%;
+  }
+
+  .recipe-image {
+    width: 100%;
+    height: auto;
+  }
 }

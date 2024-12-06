@@ -1,5 +1,6 @@
 'use client'
 import { useState } from "react";
+import Image from "next/image";
 
 // Déclare un type pour la recette
 type Recipe = {
@@ -8,6 +9,14 @@ type Recipe = {
   instructions: string;
   image: string; // Ajout de l'image pour afficher la recette
 };
+
+// Déclare un type pour la structure de l'objet `meal` venant de l'API
+type Meal = {
+  strMeal: string, 
+  strMealThumb: string;
+  strInstructions: string;
+  [key: string] : string | null;
+}
 
 export default function About() {
   const [recipe, setRecipe] = useState<Recipe | null>(null); // État pour stocker la recette
@@ -36,130 +45,63 @@ export default function About() {
     }
   };
 
-  // Formate les ingrédients (la base de l'API est sous forme de strIngredient1, strIngredient2, etc.)
-  const formatIngredients = (meal: any): string => {
+  // Formate les ingrédients (avec les quantités) de l'API
+  const formatIngredients = (meal: Meal): string => {
     const ingredients = [];
     for (let i = 1; i <= 20; i++) {
       const ingredient = meal[`strIngredient${i}`];
-      if (ingredient) {
-        ingredients.push(ingredient);
+      const measure = meal[`strMeasure${i}`];  // Quantité correspondante à l'ingrédient
+
+      if (ingredient && measure) {
+        ingredients.push(`${measure} ${ingredient}`);
+      } else if (ingredient) {
+        ingredients.push(ingredient);  // Si la mesure est manquante, on affiche seulement l'ingrédient
       }
     }
     return ingredients.join(", ");
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-        height: "100vh",
-        background: "linear-gradient(135deg, #6a11cb, #2575fc)",
-        color: "white",
-        fontFamily: "Arial, sans-serif",
-        textAlign: "center",
-        overflow: "hidden",
-        padding: "1rem",
-        boxSizing: "border-box",
-      }}
-    >
-      <h1
-        style={{
-          fontSize: "3rem",
-          letterSpacing: "0.1em",
-          textTransform: "uppercase",
-          fontWeight: "bold",
-          color: "#ffdf6c",
-          marginBottom: "2rem",
-        }}
-      >
-        Bonjour Mina ✨
+    <div className="container">
+      <h1 className="title">
+        Bonjour Mina ✨👩🏻‍🍳
       </h1>
 
-      {/* Bouton pour générer une recette */}
       <button
         onClick={generateRecipe}
-        style={{
-          padding: "1rem 2rem",
-          backgroundColor: "#ffdf6c",
-          border: "none",
-          borderRadius: "5px",
-          fontSize: "1.2rem",
-          fontWeight: "bold",
-          cursor: "pointer",
-          transition: "transform 0.2s ease-in-out",
-          marginBottom: "2rem", // Espace entre le bouton et la recette
-        }}
-        onMouseEnter={(e) => {
-          (e.target as HTMLButtonElement).style.transform = "scale(1.1)";
-        }}
-        onMouseLeave={(e) => {
-          (e.target as HTMLButtonElement).style.transform = "scale(1)";
-        }}
+        className="generate-button"
       >
-        {loading ? "Chargement..." : "Générer une recette 🍴"}
+        {loading ? "Chargement..." : "Nouvelle recette 🍴"}
       </button>
-
+      
       {/* Affichage de la recette générée */}
       {recipe && (
-        <div
-          style={{
-            maxHeight: "70vh", // Limite la hauteur de la fenêtre de la recette
-            overflowY: "auto", // Permet le défilement si nécessaire
-            marginTop: "2rem",
-            backgroundColor: "rgba(0, 0, 0, 0.7)",
-            padding: "2rem",
-            borderRadius: "8px",
-            color: "#fff",
-            width: "100%",
-            textAlign: "left",
-            boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
-            marginBottom: "2rem",
-            boxSizing: "border-box",
-          }}
-        >
-          <h2 style={{ fontSize: "1.8rem", marginBottom: "1rem" }}>{recipe.name}</h2>
-          <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between" }}>
-            {/* Liste des ingrédients */}
-            <div style={{ width: "48%" }}>
-              <p style={{ marginBottom: "1rem" }}>
-                <strong>Ingrédients :</strong>
-              </p>
-              <ul
-                style={{
-                  marginBottom: "1rem",
-                  listStyleType: "disc",
-                  paddingLeft: "1.5rem",
-                }}
-              >
+        <div className="recipe-container">
+          <h2 className="recipe-title">{recipe.name} 🔪</h2>
+
+          <div className="recipe-body">
+            <div className="image-container">
+              <Image
+                src={recipe.image}
+                alt={recipe.name}
+                width={400}
+                height={400}
+                className="recipe-image"
+              />
+            </div>
+
+            <div className="ingredients-container">
+              <h2><strong className="ingredients-title">Ingrédients 🌮</strong></h2>
+              <ul>
                 {recipe.ingredients.split(",").map((ingredient, index) => (
                   <li key={index}>{ingredient.trim()}</li>
                 ))}
               </ul>
             </div>
-
-            {/* Image de la recette */}
-            <div style={{ width: "48%" }}>
-              <img
-                src={recipe.image}
-                alt={recipe.name}
-                style={{
-                  width: "100%",
-                  height: "auto",
-                  borderRadius: "8px",
-                  marginBottom: "1rem",
-                }}
-              />
-            </div>
           </div>
 
-          {/* Instructions */}
-          <p style={{ marginBottom: "1rem" }}>
-            <strong>Instructions :</strong>
-          </p>
-          <div style={{ whiteSpace: "pre-line", lineHeight: "1.6" }}>
+          <p><strong className="instructions-title">Instructions ⏲️</strong></p>
+          <div className="instructions-container">
             {recipe.instructions}
           </div>
         </div>
