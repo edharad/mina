@@ -63,13 +63,13 @@ html, body {
   background-color: #ffdf6c;
   border: none;
   border-radius: 5px;
-  color: #6a11cb;
+  color: black;
   font-size: 1.2rem;
   font-weight: bold;
-  font-family: 'Dancing Script', cursive;
+  font-family: 'Helvetica', cursive;
   cursor: pointer;
   transition: transform 0.2s ease-in-out;
-  margin-bottom: 2rem;
+  margin-bottom: 0;
 }
 
 .generate-button:hover {
