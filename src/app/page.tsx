@@ -64,7 +64,7 @@ export default function About() {
   return (
     <div className="container">
       <h1 className="title">
-        Bonjour Mina ✨👩🏻‍🍳
+        Bonjour Mina 👩🏻‍🍳
       </h1>
 
       <button
