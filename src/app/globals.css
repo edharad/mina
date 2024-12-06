@@ -50,7 +50,7 @@ html, body {
 /* Titre principal */
 .title {
   font-size: 3rem;
-  letter-spacing: 0.1em;
+  letter-spacing: 0em;
   font-weight: bold;
   color: #ffdf6c;
   margin-bottom: 2rem;
@@ -63,6 +63,7 @@ html, body {
   background-color: #ffdf6c;
   border: none;
   border-radius: 5px;
+  color: #6a11cb;
   font-size: 1.2rem;
   font-weight: bold;
   font-family: 'Dancing Script', cursive;
@@ -81,14 +82,15 @@ html, body {
 
 /* Style pour le corps de la recette */
 .recipe-container {
-  max-height: 70vh;
+  max-height: 150vh;
+  height: 80vh;
   overflow-y: auto;
   margin-top: 2rem;
   background-color: rgba(0, 0, 0, 0.7);
   padding: 2rem;
   border-radius: 8px;
   color: #fff;
-  width: 90%;
+  width: 100%;
   max-width: 1000px;
   text-align: left;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
